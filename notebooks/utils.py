@@ -24,12 +24,12 @@ def setup_rucio_and_proxy(
 
 def get_signed_url(client, scope, name, rse="GOOGLE_EU"):
     return next(
-        client.list_replicas([{"scope" : scope, "name" : name}])
+        client.list_replicas([{"scope" : scope, "name" : name}], rse_expression=rse)
     )["rses"][rse][0]
 
 
-def get_signed_url_worker(proxy_data, scope, name):
+def get_signed_url_worker(proxy_data, scope, name, rucio_account="nihartma"):
     import rucio.client
-    setup_rucio_and_proxy(proxy_data, rucio_home='/opt/conda', proxy_path="x509")
+    setup_rucio_and_proxy(proxy_data, rucio_account=rucio_account, rucio_home='/opt/conda', proxy_path="x509")
     rucio_client = rucio.client.Client()
     return get_signed_url(rucio_client, scope, name)
