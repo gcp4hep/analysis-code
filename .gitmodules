@@ -1,0 +1,3 @@
+[submodule "panda/to_parquet_forBQ/physlite-experiments.git"]
+	path = panda/to_parquet_forBQ/physlite-experiments.git
+	url = https://gitlab.cern.ch/nihartma/physlite-experiments.git
