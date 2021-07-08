@@ -28,8 +28,8 @@ def get_signed_url(client, scope, name, rse="GOOGLE_EU"):
     )["rses"][rse][0]
 
 
-def get_signed_url_worker(proxy_data, scope, name, rucio_account="nihartma"):
+def get_signed_url_worker(proxy_data, scope, name, rucio_account="nihartma", rucio_home='/opt/conda'):
     import rucio.client
-    setup_rucio_and_proxy(proxy_data, rucio_account=rucio_account, rucio_home='/opt/conda', proxy_path="x509")
+    setup_rucio_and_proxy(proxy_data, rucio_account=rucio_account, rucio_home=rucio_home, proxy_path="x509")
     rucio_client = rucio.client.Client()
     return get_signed_url(rucio_client, scope, name)
