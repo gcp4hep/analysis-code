@@ -1,16 +1,5 @@
 import os
 
-def setup_proxy(x509_data, proxy_path="/tmp/x509"):
-    x509_data = x509_data
-    x509_proxy_path = proxy_path
-    if os.path.exists(x509_proxy_path):
-        os.chmod(x509_proxy_path, 0o600)
-    with open(x509_proxy_path, "wb") as f:
-        f.write(x509_data)
-    os.chmod(x509_proxy_path, 0o400)
-    os.environ['X509_USER_PROXY'] = x509_proxy_path
-
-
 def setup_rucio_and_proxy(
     x509_data,
     rucio_account="nihartma",
@@ -19,7 +8,14 @@ def setup_rucio_and_proxy(
 ):
     os.environ['RUCIO_ACCOUNT']  = rucio_account
     os.environ['RUCIO_HOME'] = rucio_home
-    setup_proxy(x509_data, proxy_path)
+    x509_data = x509_data
+    x509_proxy_path = proxy_path
+    if os.path.exists(x509_proxy_path):
+        os.chmod(x509_proxy_path, 0o600)
+    with open(x509_proxy_path, "wb") as f:
+        f.write(x509_data)
+    os.chmod(x509_proxy_path, 0o400)
+    os.environ['X509_USER_PROXY'] = x509_proxy_path
 
 
 def get_signed_url(client, scope, name, rse="GOOGLE_EU"):
