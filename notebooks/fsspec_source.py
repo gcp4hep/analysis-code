@@ -35,3 +35,9 @@ class FSSpecHttpSource(uproot.source.chunk.Source):
                 notifications.put(chunk)
             chunks.append(chunk)
         return chunks
+ 
+    def __enter__(self):
+        return self
+
+    def __exit__(self, exception_type, exception_value, traceback):
+        pass
